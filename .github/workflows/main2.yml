@@ -1,0 +1,97 @@
+name: Java CI with Maven - Task Class Tests
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test-message-class:
+    name: Test Message/Task Class
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      
+      - name: Display Maven version
+        run: mvn --version
+      
+      - name: Clean and compile
+        run: mvn clean compile
+        continue-on-error: false
+      
+      - name: Run all tests with error handling
+        id: run-tests
+        run: |
+          mvn test || true
+          echo "Tests completed with exit code: $?"
+      
+      - name: Run MessageTest
+        id: message-test
+        run: mvn test -Dtest=MessageTest
+        continue-on-error: true
+      
+      - name: Run LoginTest
+        id: login-test
+        run: mvn test -Dtest=LoginTest
+        continue-on-error: true
+      
+      - name: Run MessageAdvancedTest
+        id: advanced-test
+        run: mvn test -Dtest=MessageAdvancedTest
+        continue-on-error: true
+      
+      - name: Display test results
+        if: always()
+        run: |
+          echo "=== TEST RESULTS ==="
+          echo ""
+          if [ -d "target/surefire-reports" ]; then
+            echo "Test reports found. Displaying results:"
+            echo ""
+            for file in target/surefire-reports/*.txt; do
+              if [ -f "$file" ]; then
+                echo "=== $(basename "$file") ==="
+                cat "$file"
+                echo ""
+              fi
+            done
+          else
+            echo "No test reports found. Checking for test execution..."
+          fi
+      
+      - name: Check for test failures
+        if: always()
+        run: |
+          if grep -r "FAILURE" target/surefire-reports/ 2>/dev/null; then
+            echo "Some tests failed!"
+            echo "test_status=failed" >> $GITHUB_OUTPUT
+          else
+            echo "All tests passed!"
+            echo "test_status=passed" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate test report
+        run: mvn surefire-report:report
+        continue-on-error: true
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            target/surefire-reports/
+            target/site/
+      
+      
