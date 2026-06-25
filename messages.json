@@ -1,0 +1,74 @@
+[
+    {
+        "messageNumber": 1,
+        "messageId": "1111111111",
+        "messageHash": "11:1:DIDYOUGETTHECAKE?",
+        "recipientNumber": "+27834557896",
+        "messageContent": "Did you get the cake?",
+        "status": "sent",
+        "timestamp": 1782402290429
+    },
+    {
+        "messageNumber": 2,
+        "messageId": "2222222222",
+        "messageHash": "22:2:WHEREAREYOU? ON TIME.",
+        "recipientNumber": "+27838884567",
+        "messageContent": "Where are you? You are late! I have asked you to be on time.",
+        "status": "stored",
+        "timestamp": 1782402290441
+    },
+    {
+        "messageNumber": 3,
+        "messageId": "3333333333",
+        "messageHash": "33:3:YOHOOOO, GATE.",
+        "recipientNumber": "+27834484567",
+        "messageContent": "Yohoooo, I am at your gate.",
+        "status": "disregarded",
+        "timestamp": 1782402290443
+    },
+    {
+        "messageNumber": 4,
+        "messageId": "4444444444",
+        "messageHash": "44:4:ITIS DINNERTIME!",
+        "recipientNumber": "0838884567",
+        "messageContent": "It is dinner time!",
+        "status": "sent",
+        "timestamp": 1782402290444
+    },
+    {
+        "messageNumber": 5,
+        "messageId": "5555555555",
+        "messageHash": "55:5:OK, YOU.",
+        "recipientNumber": "+27838884567",
+        "messageContent": "Ok, I am leaving without you.",
+        "status": "stored",
+        "timestamp": 1782402290446
+    },
+    {
+        "messageNumber": 5,
+        "messageId": "8150547504",
+        "messageHash": "81:5:DIDCAKE",
+        "recipientNumber": "+27834557896",
+        "messageContent": "Did you get the cake",
+        "status": "sent",
+        "timestamp": 1782404393114
+    },
+    {
+        "messageNumber": 7,
+        "messageId": "7473898918",
+        "messageHash": "74:7:ITTIME",
+        "recipientNumber": "+27838884567",
+        "messageContent": "It is dinner time",
+        "status": "sent",
+        "timestamp": 1782404657769
+    },
+    {
+        "messageNumber": 8,
+        "messageId": "7100254996",
+        "messageHash": "71:8:WEFR",
+        "recipientNumber": "+27821126677",
+        "messageContent": "We are outside fr",
+        "status": "sent",
+        "timestamp": 1782406974580
+    }
+]
