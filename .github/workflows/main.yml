@@ -1,0 +1,59 @@
+name: Java CI with Maven - Task Class Tests
+
+on:
+  push:
+    branches: [ "main", "develop", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test-message-class:
+    name: Test Message/Task Class
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      
+      - name: Display Maven version
+        run: mvn --version
+      
+      - name: Clean and compile
+        run: mvn clean compile
+      
+      - name: Run MessageTest (Task Class Tests)
+        run: mvn test -Dtest=MessageTest
+        continue-on-error: false
+      
+      - name: Run LoginTest
+        run: mvn test -Dtest=LoginTest
+        continue-on-error: false
+      
+      - name: Run MessageAdvancedTest
+        run: mvn test -Dtest=MessageAdvancedTest
+        continue-on-error: false
+      
+      - name: Run all tests
+        run: mvn test
+      
+      - name: Generate test report
+        run: mvn surefire-report:report
+        continue-on-error: true
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            target/surefire-reports/
+            target/site/
+      
